@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
-      - name: "Configure AWS Credentials" Action for GitHub Actions
+      - name: "Configure AWS Credentials Action for GitHub Actions"
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
           role-to-assume: arn:aws:iam::204330452644:role/GitHubAction-AssumeRoleWithAction
