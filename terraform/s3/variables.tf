@@ -4,3 +4,8 @@ variable "bucket-name" {
   type        = string
 
 }
+
+variable "s3-origin-name" {
+  default = "s3-origin"
+  type    = string
+}
