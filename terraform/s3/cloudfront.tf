@@ -1,11 +1,11 @@
-# resource "aws_cloudfront_origin_access_identity" "oai" {
-#   comment = aws_s3_bucket.cloud-resume.bucket_regional_domain_name
-# }
+# Required for CloudFront to work and to be secure
 
+# Modern and recommended way by AWS for cache policy and origin policy
 data "aws_cloudfront_cache_policy" "cached-policy" {
   name = "Managed-CachingOptimized"
 }
 
+# This is the ID card of CloudFront for S3 security policy
 resource "aws_cloudfront_origin_access_control" "oac" {
   name                              = "default-oac"
   origin_access_control_origin_type = "s3"
@@ -13,6 +13,7 @@ resource "aws_cloudfront_origin_access_control" "oac" {
   signing_protocol                  = "sigv4"
 }
 
+# Actual CloudFron distribution config
 resource "aws_cloudfront_distribution" "s3-distribution" {
   enabled = true
   origin {
@@ -28,12 +29,6 @@ resource "aws_cloudfront_distribution" "s3-distribution" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = var.s3-origin-name
     cache_policy_id        = data.aws_cloudfront_cache_policy.cached-policy.id
-    # forwarded_values {
-    #   query_string = false
-    #   cookies {
-    #     forward = "none"
-    #   }
-    # }
   }
 
   viewer_certificate {
@@ -48,6 +43,7 @@ resource "aws_cloudfront_distribution" "s3-distribution" {
   }
 }
 
+# Optional resources for logging. Not required for CloudFront to work
 resource "aws_cloudwatch_log_delivery_source" "log-delivery-source" {
   region = "us-east-1"
 
