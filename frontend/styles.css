@@ -332,3 +332,64 @@ footer .cta {
     padding-top: var(--space-4);
   }
 }
+
+/* ============================================
+   Expandable experience entries (details/summary)
+   ============================================ */
+.entry details {
+  border: none;
+}
+
+.entry summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.entry summary::-webkit-details-marker {
+  display: none;
+}
+
+.entry summary::marker {
+  content: "";
+}
+
+.entry summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-left: auto;
+  border-right: 1.5px solid var(--ink-muted);
+  border-bottom: 1.5px solid var(--ink-muted);
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.entry details[open] summary::after {
+  transform: rotate(-135deg);
+}
+
+.entry summary .role-title {
+  margin-bottom: 0;
+}
+
+.entry summary .company {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.entry .details-content {
+  padding-top: var(--space-2);
+}
+
+@media (max-width: 560px) {
+  .entry summary {
+    flex-wrap: wrap;
+  }
+  .entry summary::after {
+    margin-left: 0;
+  }
+}

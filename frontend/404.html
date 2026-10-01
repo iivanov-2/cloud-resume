@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found — Ivan Ivanov</title>
+<meta name="robots" content="noindex">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+<style>
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .error-code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+  .error-page h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    margin-bottom: var(--space-2);
+  }
+  .error-page p {
+    color: var(--ink-muted);
+  }
+  .error-page a {
+    display: inline-block;
+    margin-top: var(--space-2);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <section class="error-page" style="border-top: none;">
+    <p class="error-code">404 / not found</p>
+    <h1>This page doesn't exist.</h1>
+    <p>The link might be broken, or the page may have moved.</p>
+    <a href="/">&larr; Back to the homepage</a>
+  </section>
+</div>
+
+</body>
+</html>
