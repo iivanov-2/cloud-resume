@@ -1,6 +1,7 @@
 # Required for CloudFront to work and to be secure
 
 # Modern and recommended way by AWS for cache policy and origin policy
+# No cookies/query strings in cache key as this is static content that is same for every visitor
 data "aws_cloudfront_cache_policy" "cached-policy" {
   name = "Managed-CachingOptimized"
 }
@@ -35,7 +36,7 @@ resource "aws_cloudfront_distribution" "s3-distribution" {
     cloudfront_default_certificate = true
   }
 
-  is_ipv6_enabled = false
+  is_ipv6_enabled = true
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -69,6 +70,6 @@ resource "aws_cloudwatch_log_delivery" "log-delivery" {
   delivery_destination_arn = aws_cloudwatch_log_delivery_destination.log-destination.arn
 
   s3_delivery_configuration {
-    suffix_path = "/204330452644/{DistributionId}/{yyyy}/{MM}/{dd}/{HH}"
+    suffix_path = "/{DistributionId}/{yyyy}/{MM}/{dd}/{HH}"
   }
 }
