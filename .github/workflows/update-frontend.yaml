@@ -2,7 +2,15 @@
 name: Update frontend eveytime CI/CD
 
 # Controls when the action will run. Invokes the workflow on push events but only for the main branch
-on: workflow_dispatch
+# on: workflow_dispatch
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+    branches:
+      - 'main'
+  workflow_dispatch:
 
 env:
   
