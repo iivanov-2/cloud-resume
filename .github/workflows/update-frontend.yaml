@@ -37,6 +37,6 @@ jobs:
       - name: Trigger Invalidation
         run: |
           cloudfront_id=$(aws cloudfront list-distributions | jq -r '.[].[].[].Id')
-          aws cloudfront create-invalidation --distribution-id $cloudfront_id --paths "*"
+          aws cloudfront create-invalidation --distribution-id $cloudfront_id --paths "/*"
 
 
