@@ -53,13 +53,20 @@ resource "aws_cloudwatch_log_delivery_source" "log-delivery-source" {
   resource_arn = aws_cloudfront_distribution.s3-distribution.arn
 }
 
+resource "aws_cloudwatch_log_group" "cloud-resume-loggroup" {
+  region = "us-east-1"
+  name   = "cloud-resume-log-group"
+}
+
 resource "aws_cloudwatch_log_delivery_destination" "log-destination" {
   region = "us-east-1"
 
-  name          = "s3-destination"
+  # name          = "s3-destination"
+  name          = "cloudfront-access-logs"
   output_format = "json"
   delivery_destination_configuration {
-    destination_resource_arn = "${aws_s3_bucket.cloud-resume.arn}/logs"
+    # destination_resource_arn = "${aws_s3_bucket.cloud-resume.arn}/logs"
+    destination_resource_arn = aws_cloudwatch_log_group.cloud-resume-loggroup.arn
   }
 }
 
@@ -69,7 +76,17 @@ resource "aws_cloudwatch_log_delivery" "log-delivery" {
   delivery_source_name     = aws_cloudwatch_log_delivery_source.log-delivery-source.name
   delivery_destination_arn = aws_cloudwatch_log_delivery_destination.log-destination.arn
 
-  s3_delivery_configuration {
-    suffix_path = "/{DistributionId}/{yyyy}/{MM}/{dd}/{HH}"
-  }
+  # s3_delivery_configuration {
+  #   suffix_path = "/{DistributionId}/{yyyy}/{MM}/{dd}/{HH}"
+  # }
+  record_fields = [
+    "date",
+    "time",
+    "c-ip",
+    "sc-status",
+    "viewer-request-log-data",
+    "viewer-response-log-data",
+  ]
+
+  # depends_on = [aws_cloudwatch_log_delivery_source.log-delivery-source]
 }
