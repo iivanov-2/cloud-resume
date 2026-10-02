@@ -35,7 +35,6 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
 
-      # Hello from AWS: WhoAmI
       - name: Upload Frontend to S3 Bucket
         run: |
           ls -alh frontend/
