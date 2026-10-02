@@ -33,3 +33,10 @@ jobs:
           ls -alh frontend/
           cd frontend/
           aws s3 sync . s3://${{env.AWS_BUCKET}}
+
+      - name: Trigger Invalidation
+        run: |
+          cloudfront_id=$(aws cloudfront list-distributions | jq -r '.[].[].[].Id')
+          aws cloudfront create-invalidation --distribution-id $cloudfront_id --paths "*"
+
+
