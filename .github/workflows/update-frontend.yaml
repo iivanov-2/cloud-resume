@@ -31,4 +31,5 @@ jobs:
       - name: Upload Frontend to S3 Bucket
         run: |
           ls -alh frontend/
-          aws s3 sync frontend/* s3://${{env.AWS_BUCKET}}
+          cd frontend/
+          aws s3 sync . s3://${{env.AWS_BUCKET}}
