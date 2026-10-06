@@ -45,8 +45,9 @@ resource "aws_cloudfront_distribution" "s3-distribution" {
 }
 
 # Optional resources for logging. Not required for CloudFront to work
+# Because CloudFront is global service all logging resources must be in us-east-1
 resource "aws_cloudwatch_log_delivery_source" "log-delivery-source" {
-  region = "us-east-1"
+  region = var.overwrite-region
 
   name         = var.bucket-name
   log_type     = "ACCESS_LOGS"
@@ -54,12 +55,12 @@ resource "aws_cloudwatch_log_delivery_source" "log-delivery-source" {
 }
 
 resource "aws_cloudwatch_log_group" "cloud-resume-loggroup" {
-  region = "us-east-1"
+  region = var.overwrite-region
   name   = "cloud-resume-log-group"
 }
 
 resource "aws_cloudwatch_log_delivery_destination" "log-destination" {
-  region = "us-east-1"
+  region = var.overwrite-region
 
   # name          = "s3-destination"
   name          = "cloudfront-access-logs"
@@ -71,7 +72,7 @@ resource "aws_cloudwatch_log_delivery_destination" "log-destination" {
 }
 
 resource "aws_cloudwatch_log_delivery" "log-delivery" {
-  region = "us-east-1"
+  region = var.overwrite-region
 
   delivery_source_name     = aws_cloudwatch_log_delivery_source.log-delivery-source.name
   delivery_destination_arn = aws_cloudwatch_log_delivery_destination.log-destination.arn
@@ -89,4 +90,11 @@ resource "aws_cloudwatch_log_delivery" "log-delivery" {
   ]
 
   # depends_on = [aws_cloudwatch_log_delivery_source.log-delivery-source]
+}
+
+resource "aws_ssm_parameter" "cloudfront-id" {
+  name        = "/dev/cloud-resume/cloudfront/id"
+  description = "Cloud Resume's ID of CloudFront"
+  type        = "String"
+  value       = aws_cloudfront_distribution.s3-distribution.id
 }
