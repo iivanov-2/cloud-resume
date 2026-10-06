@@ -39,7 +39,7 @@ jobs:
         run: |
           ls -alh frontend/
           cd frontend/
-          aws s3 sync . s3://${{env.AWS_BUCKET}}
+          aws s3 sync . s3://${{env.AWS_BUCKET}} --delete
 
       - name: Trigger Invalidation
         run: |
