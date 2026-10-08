@@ -14,6 +14,11 @@ resource "aws_iam_role" "lambda-role" {
   assume_role_policy = data.aws_iam_policy_document.assume-role.json
 }
 
+resource "aws_iam_role_policy_attachment" "lambda-policy" {
+  role       = aws_iam_role.lambda-role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 data "archive_file" "lambda-code-zip" {
   type        = "zip"
   source_file = "${path.module}/../lambda/src/lambda_function.py"
@@ -27,4 +32,9 @@ resource "aws_lambda_function" "lambda-visitor-count" {
   handler       = "lambda_function.lambda_handler"
   code_sha256   = data.archive_file.lambda-code-zip.output_base64sha256
   runtime       = "python3.14"
+}
+
+resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  name              = "/aws/lambda/${aws_lambda_function.lambda-visitor-count.function_name}"
+  retention_in_days = 30
 }
