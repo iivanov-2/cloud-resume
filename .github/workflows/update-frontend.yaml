@@ -43,7 +43,7 @@ jobs:
 
       - name: Trigger Invalidation
         run: |
-          cloudfront_id=$(aws cloudfront list-distributions | jq -r '.[].[].[].Id')
+          cloudfront_id=$(aws ssm get-parameter --name /dev/cloud-resume/cloudfront/id | jq -r ".Parameter.Value")
           aws cloudfront create-invalidation --distribution-id $cloudfront_id --paths "/*"
 
 
