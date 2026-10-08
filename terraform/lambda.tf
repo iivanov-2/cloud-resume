@@ -14,9 +14,13 @@ resource "aws_iam_role" "lambda-role" {
   assume_role_policy = data.aws_iam_policy_document.assume-role.json
 }
 
-resource "aws_iam_role_policy_attachment" "lambda-policy" {
+resource "aws_iam_role_policy_attachment" "lambda-policy1" {
   role       = aws_iam_role.lambda-role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+resource "aws_iam_role_policy_attachment" "lambda-dynamodb-policy" {
+  role       = aws_iam_role.lambda-role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess_v2"
 }
 
 data "archive_file" "lambda-code-zip" {
