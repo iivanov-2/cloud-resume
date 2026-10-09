@@ -19,9 +19,9 @@ def lambda_handler(event, context):
         ReturnValues='UPDATED_NEW'
     )
 
-    # return {
-    #     'statusCode': 200,
-    #     'body': json.dumps(response['Attributes']['CountNumber']['N'])
-    # }
+    return {
+        'statusCode': 200,
+        'body': json.dumps(response['Attributes']['CountNumber']['N'])
+    }
 
-    return response['Attributes']['CountNumber']['N']
+    # return response['Attributes']['CountNumber']['N']
