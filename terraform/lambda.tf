@@ -25,8 +25,8 @@ resource "aws_iam_role_policy_attachment" "lambda-dynamodb-policy" {
 
 data "archive_file" "lambda-code-zip" {
   type        = "zip"
-  source_file = "${path.module}/../lambda/src/lambda_function.py"
-  output_path = "${path.module}/../lambda/archive/function.zip"
+  source_file = "${path.module}/lambda/src/lambda_function.py"
+  output_path = "${path.module}/lambda/archive/function.zip"
 }
 
 resource "aws_lambda_function" "lambda-visitor-count" {
@@ -36,6 +36,10 @@ resource "aws_lambda_function" "lambda-visitor-count" {
   handler       = "lambda_function.lambda_handler"
   code_sha256   = data.archive_file.lambda-code-zip.output_base64sha256
   runtime       = "python3.14"
+
+  lifecycle {
+    ignore_changes = [filename, source_code_hash, code_sha256]
+  }
 }
 
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
