@@ -1,18 +1,15 @@
-# This is a basic workflow to help you get started with Actions
 name: Update frontend eveytime CI/CD
-
-# Controls when the action will run. Invokes the workflow on push events but only for the main branch
-# on: workflow_dispatch
 
 on:
   push:
     paths:
       - 'frontend/**'
+      - '.github/workflows/update-frontend.yaml'
     branches:
       - 'main'
   workflow_dispatch:
 concurrency:
-  group: poc-deployment
+  group: frontend-deployment
   queue: max
 
 env:
@@ -47,6 +44,6 @@ jobs:
       - name: Trigger Invalidation
         run: |
           cloudfront_id=$(aws ssm get-parameter --name /dev/cloud-resume/cloudfront/id | jq -r ".Parameter.Value")
-          aws cloudfront create-invalidation --distribution-id $cloudfront_id --paths "/*"
+          aws cloudfront create-invalidation --distribution-id "$cloudfront_id" --paths "/*"
 
 
