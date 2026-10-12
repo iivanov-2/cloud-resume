@@ -51,9 +51,9 @@ jobs:
           cd terraform
           terraform fmt
 
-      - name: Terraform plan
+      - name: Terraform apply
         run: |
           ls -alh terraform
           cd terraform
-          terraform plan
+          terraform apply -auto-approve
           
