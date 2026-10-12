@@ -94,7 +94,7 @@ resource "aws_cloudwatch_log_delivery" "log-delivery" {
 
 resource "aws_ssm_parameter" "cloudfront-id" {
   name        = "/dev/cloud-resume/cloudfront/id"
-  description = "Cloud Resume's ID of CloudFront"
+  description = "Cloud Resume ID of CloudFront"
   type        = "String"
   value       = aws_cloudfront_distribution.s3-distribution.id
 }
