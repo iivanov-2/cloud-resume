@@ -8,7 +8,7 @@ on:
     branches:
       - 'main'
   workflow_dispatch:
-    
+
 concurrency:
   group: backend-deployment
   queue: max
@@ -36,10 +36,10 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Upload Frontend to S3 Bucket
+      - name: Upload Lambda code
         run: |
-          ls -alh backend/
+          ls -alh backend/lambda/
           cd backend/lambda/src
           zip -rv /tmp/function.zip lambda_function.py
           visitor_count_lambda=$(aws ssm get-parameter --name /dev/cloud-resume/lambda/name | jq -r ".Parameter.Value")
-          aws lambda update-function-code --function-name "visitor_count_lambda" --zip-file fileb://tmp/function.zip
+          aws lambda update-function-code --function-name "$visitor_count_lambda" --zip-file fileb:///tmp/function.zip
