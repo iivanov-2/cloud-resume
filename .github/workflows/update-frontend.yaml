@@ -11,6 +11,9 @@ on:
     branches:
       - 'main'
   workflow_dispatch:
+concurrency:
+  group: poc-deployment
+  queue: max
 
 env:
   
