@@ -46,3 +46,10 @@ resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name              = "/aws/lambda/${aws_lambda_function.lambda-visitor-count.function_name}"
   retention_in_days = 30
 }
+
+resource "aws_ssm_parameter" "visitor-count-lambda-name" {
+  name        = "/dev/cloud-resume/lambda/name"
+  description = "Cloud Resume lambda visitor count name"
+  type        = "String"
+  value       = aws_lambda_function.lambda-visitor-count.function_name
+}
