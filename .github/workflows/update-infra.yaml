@@ -38,19 +38,19 @@ jobs:
 
       - name: Terraform init
         run: |
-          # ls -alh terraform
-          working-directory: terraform
+          ls -alh terraform
+          cd terraform
           terraform init
 
       - name: Terraform format
         run: |
-          # ls -alh terraform
-          working-directory: terraform
+          ls -alh terraform
+          cd terraform
           terraform fmt
 
       - name: Terraform plan
         run: |
-          # ls -alh terraform
-          working-directory: terraform
+          ls -alh terraform
+          cd terraform
           terraform plan
           
