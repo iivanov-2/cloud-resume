@@ -1,4 +1,4 @@
-name: Update backend eveytime CI/CD
+name: Update infra eveytime CI/CD
 
 on:
   push:
@@ -38,16 +38,19 @@ jobs:
 
       - name: Terraform init
         run: |
-          ls -alh terraform
+          # ls -alh terraform
+          working-directory: terraform
           terraform init
 
       - name: Terraform format
         run: |
-          ls -alh terraform
+          # ls -alh terraform
+          working-directory: terraform
           terraform fmt
 
       - name: Terraform plan
         run: |
-          ls -alh terraform
+          # ls -alh terraform
+          working-directory: terraform
           terraform plan
           
