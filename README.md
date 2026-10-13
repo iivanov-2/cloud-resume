@@ -6,6 +6,8 @@ The main goal is to create and deploy a serverless environment using cloud solut
 
 ## Architecture
 
+![Architecture Diagram](Cloud%20Resume%20Architecture.drawio.png)
+
 Technologies used:
 
 - **Frontend:** S3, CloudFront
