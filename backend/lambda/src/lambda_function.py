@@ -1,6 +1,5 @@
 import json
 import boto3
-from itertools import count
 
 client = boto3.client('dynamodb')
 
@@ -23,5 +22,3 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps(response['Attributes']['CountNumber']['N'])
     }
-
-    # return response['Attributes']['CountNumber']['N']
