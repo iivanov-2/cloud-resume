@@ -31,7 +31,7 @@ data "archive_file" "lambda-code-zip" {
 
 resource "aws_lambda_function" "lambda-visitor-count" {
   filename      = data.archive_file.lambda-code-zip.output_path
-  function_name = var.function-name
+  function_name = var.function-db-name
   role          = aws_iam_role.lambda-role.arn
   handler       = "lambda_function.lambda_handler"
   code_sha256   = data.archive_file.lambda-code-zip.output_base64sha256
@@ -39,7 +39,7 @@ resource "aws_lambda_function" "lambda-visitor-count" {
 
   environment {
     variables = {
-      DB_NAME = var.function-name
+      DB_NAME = var.function-db-name
     }
   }
 
