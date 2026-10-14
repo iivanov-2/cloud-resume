@@ -37,6 +37,12 @@ resource "aws_lambda_function" "lambda-visitor-count" {
   code_sha256   = data.archive_file.lambda-code-zip.output_base64sha256
   runtime       = "python3.14"
 
+  environment {
+    variables = {
+      DB_NAME = var.function-name
+    }
+  }
+
   lifecycle {
     ignore_changes = [filename, source_code_hash, code_sha256]
   }
