@@ -1,4 +1,5 @@
 import json
+import os
 import boto3
 
 client = boto3.client('dynamodb')
@@ -7,7 +8,7 @@ def lambda_handler(event, context):
     # TODO implement
 
     response = client.update_item(
-        TableName='VisitCount',
+        TableName=os.environ.get('DB_NAME'),
         Key = {
             'id': {
                 'N': '1'
