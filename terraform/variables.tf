@@ -22,7 +22,7 @@ variable "AWS-account-id" {
   default     = 204330452644
 }
 
-variable "function-name" {
+variable "function-db-name" {
   type        = string
   description = "AWS Lambda Visitor Count Name"
   default     = "visitor-count"
