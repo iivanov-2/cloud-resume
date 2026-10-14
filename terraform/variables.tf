@@ -15,3 +15,15 @@ variable "overwrite-region" {
   description = "Overwrite AWS region for resource"
   default     = "us-east-1"
 }
+
+variable "AWS-account-id" {
+  type        = number
+  description = "AWS Account ID"
+  default     = 204330452644
+}
+
+variable "function-name" {
+  type        = string
+  description = "AWS Lambda Visitor Count Name"
+  default     = "visitor-count"
+}
