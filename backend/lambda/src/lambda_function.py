@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     # TODO implement
 
     response = client.update_item(
-        TableName=os.environ.get('DB_NAME'),
+        TableName=os.environ['DB_NAME'],
         Key = {
             'id': {
                 'N': '1'
