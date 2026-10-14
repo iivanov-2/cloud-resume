@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "visit-count" {
-  name           = "VisitCount"
+  name           = var.function-db-name
   billing_mode   = "PROVISIONED"
   read_capacity  = 10
   write_capacity = 10
