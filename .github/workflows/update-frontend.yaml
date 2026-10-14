@@ -10,12 +10,7 @@ on:
   workflow_dispatch:
 concurrency:
   group: frontend-deployment
-  queue: max
-
-env:
-  
-  AWS_REGION : eu-central-1 #Change to reflect your Region
-  AWS_BUCKET : cloud-resume-devops-journey
+  queue: max #Change to reflect your Region
 
 # Permission can be added at job level or workflow level    
 permissions:
@@ -31,7 +26,7 @@ jobs:
       - name: "Configure AWS Credentials Action for GitHub Actions"
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
-          role-to-assume: arn:aws:iam::204330452644:role/GitHubAction-AssumeRoleWithAction
+          role-to-assume: ${{secrets.AWS_REGION}}
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
 
@@ -39,7 +34,7 @@ jobs:
         run: |
           ls -alh frontend/
           cd frontend/
-          aws s3 sync . s3://${{env.AWS_BUCKET}} --delete
+          aws s3 sync . s3://${{vars.AWS_BUCKET}} --delete
 
       - name: Trigger Invalidation
         run: |
