@@ -44,7 +44,13 @@ jobs:
         run: |
           ls -alh terraform
           cd terraform
-          terraform fmt
+          terraform fmt -check -diff
+
+      - name: Terraform validate
+        run: |
+          ls -alh terraform
+          cd terraform
+          terraform validate
 
       - name: Terraform apply
         run: |
