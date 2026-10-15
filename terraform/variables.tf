@@ -16,6 +16,12 @@ variable "overwrite-region" {
   default     = "us-east-1"
 }
 
+variable "default-region" {
+  type        = string
+  description = "Default AWS region for resource"
+  default     = "eu-central-1"
+}
+
 variable "AWS-account-id" {
   type        = number
   description = "AWS Account ID"
@@ -26,4 +32,10 @@ variable "function-db-name" {
   type        = string
   description = "AWS Lambda Visitor Count Name"
   default     = "visitor-count"
+}
+
+variable "dashboard-name" {
+  type        = string
+  description = "The name of the dashboard used for monitoring"
+  default     = "Cloud-Resume-Dashboard"
 }
