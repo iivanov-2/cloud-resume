@@ -4,6 +4,8 @@ This is my version of [The Cloud Resume Challenge](https://cloudresumechallenge.
 
 The main goal is to create and deploy a serverless environment using cloud solutions. This involves combining multiple AWS resources to build and deploy a static website.
 
+[Live Site](https://d6hzvrrkeasjd.cloudfront.net)
+
 ## Architecture
 
 ![Architecture Diagram](Cloud%20Resume%20Architecture.drawio.png)
