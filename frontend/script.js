@@ -3,7 +3,7 @@
 
 // TODO: replace with your real endpoint:
 // https://<api-id>.execute-api.<region>.amazonaws.com/visitor-count/count
-const API_URL = "https://6vvimr3xc2.execute-api.eu-central-1.amazonaws.com/count";
+const API_URL = "https://dbm8p739cc.execute-api.eu-central-1.amazonaws.com/count";
 
 async function updateVisitorCount() {
     const el = document.getElementById("visitor-count");
