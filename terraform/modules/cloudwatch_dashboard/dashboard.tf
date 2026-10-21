@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_dashboard" "main-dashboard" {
-  dashboard_name = var.dashboard-name
+  dashboard_name = var.aws_dashboard_name
   dashboard_body = jsonencode({
     widgets = [
       {
@@ -17,7 +17,7 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
               "Region",
               "Global",
               "DistributionId",
-              "${aws_cloudfront_distribution.s3-distribution.id}"
+              "${var.aws_cloudfront_distribution_id}"
             ],
             [
               ".",
@@ -46,7 +46,7 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
           ]
           period = 300
           stat   = "Average"
-          region = var.overwrite-region
+          region = var.aws_overwrite_default_region
           title  = "CloudFront metrics"
         }
       },
@@ -65,7 +65,7 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
               "Stage",
               "$default",
               "ApiId",
-              "${aws_apigatewayv2_api.lambda-api-gateway.id}"
+              "${var.aws_api_gateway_id}"
             ],
             [
               ".",
@@ -92,7 +92,7 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
               "."
             ]
           ]
-          region = var.default-region
+          region = var.aws_default_region
           title  = "API Gateway Metrics"
         }
       },
@@ -109,9 +109,9 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
               "AWS/Lambda",
               "Throttles",
               "FunctionName",
-              "${aws_lambda_function.lambda-visitor-count.function_name}",
+              "${var.aws_lambda_function_name}",
               "Resource",
-              "${aws_lambda_function.lambda-visitor-count.function_name}"
+              "${var.aws_lambda_function_name}"
             ],
             [
               ".",
@@ -138,7 +138,7 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
               "."
             ]
           ]
-          region = var.default-region
+          region = var.aws_default_region
           title  = "Lambda Metrics"
         }
       },
@@ -155,7 +155,7 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
               "AWS/DynamoDB",
               "ConsumedWriteCapacityUnits",
               "TableName",
-              "${var.function-db-name}"
+              "${var.aws_databse_name}"
             ],
             [
               ".",
@@ -176,7 +176,7 @@ resource "aws_cloudwatch_dashboard" "main-dashboard" {
               "."
             ]
           ]
-          region = var.default-region
+          region = var.aws_default_region
           title  = "DynamoDB Metrics"
         }
       }

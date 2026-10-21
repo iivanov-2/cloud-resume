@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "cloud-resume" {
-  bucket        = var.bucket-name
+  bucket        = var.aws_cloud_resume_bucket_name
   force_destroy = true
 
   tags = {
-    Name = var.bucket-name
+    Name = var.aws_cloud_resume_bucket_name
   }
 }
 
@@ -20,7 +20,7 @@ resource "aws_s3_bucket_policy" "bucket-policy" {
         Resource  = "${aws_s3_bucket.cloud-resume.arn}/*"
         Condition = {
           StringEquals = {
-            "AWS:SourceArn" = "${aws_cloudfront_distribution.s3-distribution.arn}"
+            "AWS:SourceArn" = "${var.aws_cloudfront_distribution_arn}"
           }
         }
       },
@@ -29,14 +29,14 @@ resource "aws_s3_bucket_policy" "bucket-policy" {
         Effect    = "Allow"
         Principal = { Service = "delivery.logs.amazonaws.com" }
         Action    = "s3:PutObject"
-        Resource  = "${aws_s3_bucket.cloud-resume.arn}/logs/AWSLogs/${var.AWS-account-id}/*"
+        Resource  = "${aws_s3_bucket.cloud-resume.arn}/logs/AWSLogs/${var.aws_account_number}/*"
         Condition = {
           StringEquals = {
             "s3:x-amz-acl"      = "bucket-owner-full-control"
-            "aws:SourceAccount" = "${var.AWS-account-id}"
+            "aws:SourceAccount" = "${var.aws_account_number}"
           }
           ArnLike = {
-            "aws:SourceArn" = "${aws_cloudwatch_log_delivery_source.log-delivery-source.arn}"
+            "aws:SourceArn" = "${var.aws_cloudwatch_log_delivery_source_arn}"
           }
         }
       },
@@ -48,10 +48,10 @@ resource "aws_s3_bucket_policy" "bucket-policy" {
         Resource  = aws_s3_bucket.cloud-resume.arn
         Condition = {
           StringEquals = {
-            "aws:SourceAccount" = "${var.AWS-account-id}"
+            "aws:SourceAccount" = "${var.aws_account_number}"
           }
           ArnLike = {
-            "aws:SourceArn" = "${aws_cloudwatch_log_delivery_source.log-delivery-source.arn}"
+            "aws:SourceArn" = "${var.aws_cloudwatch_log_delivery_source_arn}"
           }
         }
       }

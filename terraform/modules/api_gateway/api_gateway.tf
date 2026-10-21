@@ -1,9 +1,9 @@
 resource "aws_apigatewayv2_api" "lambda-api-gateway" {
-  name          = "lambda-api-gateway"
+  name          = var.aws_api_gateway_name
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins = ["https://${aws_cloudfront_distribution.s3-distribution.domain_name}"]
+    allow_origins = ["https://${var.aws_cloudfront_distribution_domain_name}"]
     allow_methods = ["GET"]
     max_age       = 86400
   }
@@ -39,7 +39,7 @@ resource "aws_apigatewayv2_integration" "lambda-api-gateway-integration" {
   connection_type    = "INTERNET"
   description        = "Lambda API Gateway Integration"
   integration_method = "POST"
-  integration_uri    = aws_lambda_function.lambda-visitor-count.invoke_arn
+  integration_uri    = var.aws_lambda_invoke_arn
 }
 
 resource "aws_apigatewayv2_route" "lambda-api-gateway-route" {
@@ -51,7 +51,7 @@ resource "aws_apigatewayv2_route" "lambda-api-gateway-route" {
 resource "aws_lambda_permission" "lambda-api-gateway-permissions" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda-visitor-count.function_name
+  function_name = var.aws_lambda_function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.lambda-api-gateway.execution_arn}/*/*"
 }
