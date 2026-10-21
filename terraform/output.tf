@@ -1,11 +1,7 @@
-locals {
-  URL = "https://${aws_cloudfront_distribution.s3-distribution.domain_name}"
+output "aws_cloudfront_static_url" {
+  value = module.cloudfront.aws_cloudfront_static_url
 }
 
-output "Static-Web-Site-URL" {
-  value = local.URL
-}
-
-output "Lambda-Invoke-URL" {
-  value = "${aws_apigatewayv2_stage.lambda-api-gateway-stage.invoke_url}count"
+output "aws_lambda_invoke_url" {
+  value = module.api_gateway.aws_lambda_invoke_url
 }

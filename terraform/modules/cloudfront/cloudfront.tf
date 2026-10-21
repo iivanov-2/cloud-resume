@@ -18,8 +18,8 @@ resource "aws_cloudfront_origin_access_control" "oac" {
 resource "aws_cloudfront_distribution" "s3-distribution" {
   enabled = true
   origin {
-    domain_name              = aws_s3_bucket.cloud-resume.bucket_regional_domain_name
-    origin_id                = var.s3-origin-name
+    domain_name              = var.aws_s3_bucket_regional_domain_name
+    origin_id                = var.aws_cloudfront_origin_name
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
   default_root_object = "index.html"
@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "s3-distribution" {
     viewer_protocol_policy = "redirect-to-https"
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = var.s3-origin-name
+    target_origin_id       = var.aws_cloudfront_origin_name
     cache_policy_id        = data.aws_cloudfront_cache_policy.cached-policy.id
   }
 
@@ -47,20 +47,20 @@ resource "aws_cloudfront_distribution" "s3-distribution" {
 # Optional resources for logging. Not required for CloudFront to work
 # Because CloudFront is global service all logging resources must be in us-east-1
 resource "aws_cloudwatch_log_delivery_source" "log-delivery-source" {
-  region = var.overwrite-region
+  region = var.aws_overwrite_default_regionn
 
-  name         = var.bucket-name
+  name         = var.aws_cloud_resume_bucket_name
   log_type     = "ACCESS_LOGS"
   resource_arn = aws_cloudfront_distribution.s3-distribution.arn
 }
 
 resource "aws_cloudwatch_log_group" "cloud-resume-loggroup" {
-  region = var.overwrite-region
+  region = var.aws_overwrite_default_regionn
   name   = "cloud-resume-log-group"
 }
 
 resource "aws_cloudwatch_log_delivery_destination" "log-destination" {
-  region = var.overwrite-region
+  region = var.aws_overwrite_default_regionn
 
   # name          = "s3-destination"
   name          = "cloudfront-access-logs"
@@ -72,7 +72,7 @@ resource "aws_cloudwatch_log_delivery_destination" "log-destination" {
 }
 
 resource "aws_cloudwatch_log_delivery" "log-delivery" {
-  region = var.overwrite-region
+  region = var.aws_overwrite_default_regionn
 
   delivery_source_name     = aws_cloudwatch_log_delivery_source.log-delivery-source.name
   delivery_destination_arn = aws_cloudwatch_log_delivery_destination.log-destination.arn
