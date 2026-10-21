@@ -4,7 +4,7 @@ This is my version of [The Cloud Resume Challenge](https://cloudresumechallenge.
 
 The main goal is to create and deploy a serverless environment using cloud solutions. This involves combining multiple AWS resources to build and deploy a static website.
 
-[Live Site](https://d6hzvrrkeasjd.cloudfront.net)
+[Live Site](https://d3jvtms69toigm.cloudfront.net)
 
 ## Architecture
 
@@ -38,5 +38,4 @@ Also, I got practical experience working with Terraform and GitHub Actions.
 This is an ongoing project and I'm planning on adding more features later.
 
 - ~~**Monitoring** - Set up a dashboard to track the website~~ - Completed
-- **Containerization** - Containerize the website and run it using Kubernetes
 - **Custom Domain** - Buy a domain name and set it up with Route53
