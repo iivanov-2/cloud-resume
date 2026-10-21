@@ -9,9 +9,6 @@ on:
       - 'main'
   workflow_dispatch:
 
-env:
-  TF_LOG: DEBUG
-
 concurrency:
   group: infra-deployment
   queue: max
